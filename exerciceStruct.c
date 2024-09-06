@@ -39,10 +39,9 @@ printf("entrez le mot de pass");
 scanf("%s",p1.password);
 
 printf("entrez la date de naissance");
-scanf("%d %s %d",&p1.datenais.day,p1.datenais.mois,&p1.datenais.year);
+scanf("%d %s %d",&p1.datenais.day,&p1.datenais.mois,&p1.datenais.year);
 
-printf("entrez adress");
-scanf("%s %s %s",p1.firstName);
+printf("%s",p1.datenais.mois);
 
 
 
