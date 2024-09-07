@@ -133,8 +133,20 @@ int index_affichage=0;
 
         break;
         case 5:
+         printf("entrer le nom : ");
+         scanf("%s",n);
 
-            printf("bien rechercher\n");
+                        for(int i=0;i<100;i++){
+                            if(strcmp(n,contacs[i].nom)==0){
+                                printf("contact %d : \n",i+1);
+                                afficher(contacs[i]);
+                                break;
+                            }else if (strcmp(n,contacs[i].nom)!=0 && i==99){
+                            printf("ce nom n'existe pas !\n");
+                            }
+                        }
+
+
         break;
         case 6:
 
