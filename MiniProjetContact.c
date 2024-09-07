@@ -25,17 +25,19 @@ scanf("%s",c1.email);
 return c1;
 }
 
-struct Contact modifier(struct Contact c1){
+struct Contact modifier(struct Contact *c1){
 char n1[100], n2[100];
 printf("entrer le nouveau numero de telephone : ");
 scanf("%s",n1);
-strcpy(c1.numTel,n1);
+
+strcpy(c1->numTel,n1);
 
 printf("entrer le nouveau email : ");
 scanf("%s",n2);
-strcpy(c1.email,n2);
 
-return c1;
+strcpy(c1->email,n2);
+
+
 }
 
 void afficher(struct Contact c1){
@@ -76,10 +78,10 @@ int j=0;
             scanf("%s",n);
             for(int i=0;i<100;i++){
                 if(strcmp(n,contacs[i].nom)==0){
-                    modifier(contacs[i]);
+                    modifier(&contacs[i]);
                     printf("bien modifier\n");
                     break;
-                }else if (n!=contacs[i].nom && i==99){
+                }else if (strcmp(n,contacs[i].nom)!=0 && i==99){
                 printf("ce nom n'existe pas !\n");
                 }else{
                 continue;
@@ -94,11 +96,14 @@ int j=0;
             printf("bien supprimer\n");
         break;
         case 4:
+            if(j==i && i==0){
+                printf("aucun contact\n");
+            }else{
            while(j!=i){
                 printf("contact %d : \n",j+1);
             afficher(contacs[j]);
             j++;
-            }
+            }}
         break;
         case 5:
 
