@@ -25,20 +25,21 @@ scanf("%s",c1.email);
 return c1;
 }
 
-struct Contact modifier(struct Contact *c1){
-char n1[100], n2[100];
+void modifier(struct Contact *c1){
+char t1[100], t2[100];
 printf("entrer le nouveau numero de telephone : ");
-scanf("%s",n1);
+scanf("%s",t1);
 
-strcpy(c1->numTel,n1);
+strcpy(c1->numTel,t1);
 
 printf("entrer le nouveau email : ");
-scanf("%s",n2);
+scanf("%s",t2);
 
-strcpy(c1->email,n2);
+strcpy(c1->email,t2);
 
 
 }
+
 
 void afficher(struct Contact c1){
 
@@ -54,13 +55,13 @@ int main(int argc ,char *argv[]){
 struct Contact contacs[100];
 
 
-int i=0;
+int index_des_contacts=0;
 
 char n[100];
 
 while(1){
       struct Contact c1;
-int j=0;
+int index_affichage=0;
     int menu=0;
     printf("1-Ajouter 2-Modifier 3-Supprimer 4-Afficher 5-Rechercher 6-Quitter : ");
     scanf("%d",&menu);
@@ -68,14 +69,15 @@ int j=0;
     switch(menu){
         case 1:
             c1=ajouter();
-            contacs[i]=c1;
-            i++;
+            contacs[index_des_contacts]=c1;
+            index_des_contacts++;
             printf("bien ajouter\n");
             break;
         case 2:
 
             printf("entrer le nom : ");
             scanf("%s",n);
+
             for(int i=0;i<100;i++){
                 if(strcmp(n,contacs[i].nom)==0){
                     modifier(&contacs[i]);
@@ -93,17 +95,42 @@ int j=0;
         break;
         case 3:
 
-            printf("bien supprimer\n");
+            printf("entrer le nom : ");
+            scanf("%s",n);
+
+            for(int i=0;i<100;i++){
+                if(strcmp(n,contacs[i].nom)==0){
+                        for(int j=i;j<100;j++){
+                    contacs[j]=contacs[j+1];
+                    }
+                    printf("bien supprimer\n");
+
+                    break;
+                }else if (strcmp(n,contacs[i].nom)!=0 && i==99){
+                printf("ce nom n'existe pas !\n");
+                }else{
+                continue;
+                }
+            }
+            index_des_contacts--;
+
+
         break;
         case 4:
-            if(j==i && i==0){
+
+
+            if(index_affichage==index_des_contacts && index_des_contacts==0){
                 printf("aucun contact\n");
             }else{
-           while(j!=i){
-                printf("contact %d : \n",j+1);
-            afficher(contacs[j]);
-            j++;
+           while(index_affichage!=index_des_contacts){
+
+                printf("contact %d : \n",index_affichage+1);
+            afficher(contacs[index_affichage]);
+
+            index_affichage++;
             }}
+
+
         break;
         case 5:
 
