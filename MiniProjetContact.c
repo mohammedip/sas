@@ -104,7 +104,7 @@ int index_affichage=0;
                     contacs[j]=contacs[j+1];
                     }
                     printf("bien supprimer\n");
-
+                    index_des_contacts--;
                     break;
                 }else if (strcmp(n,contacs[i].nom)!=0 && i==99){
                 printf("ce nom n'existe pas !\n");
@@ -112,7 +112,7 @@ int index_affichage=0;
                 continue;
                 }
             }
-            index_des_contacts--;
+
 
 
         break;
