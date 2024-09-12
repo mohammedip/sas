@@ -96,7 +96,7 @@ struct Etudiant supprimer(int num,int index,struct Etudiant etudiants[100]){
                         printf("bien supprimer\n");
 
                         break;
-                    }else if (strcmp(num,etudiants[i].numUniq)!=0 && i==99){
+                    }else if (num!=etudiants[i].numUniq && i==99){
                     printf("ce nom n'existe pas !\n");
                     }else{
                     continue;
@@ -211,44 +211,79 @@ index--;
 void statistique(struct Etudiant etudiants[],int index){
 
 int conteurDep=0,seuil=0,conteurReus=0;
-char dep[100];
+char dep1[]={"math"};
+char dep2[]={"phisique"};
+char dep3[]={"svt"};
+char dep4[]={"informatique"};
 
-    printf("entrer le departement : ");
+    printf("entrer le seuil : ");
     scanf("%d",&seuil);
 
-     printf("Nombre total d'etudiants inscrits : %d",index);
-   // printf("%d",conteur);
+     printf("Nombre total d'etudiants inscrits : %d\n",index);
 
-    //printf("entrer le departement : ");
-    //scanf("%s",dep);
              for(int i=0;i<index;i++){
 
-                  if (strcmp(dep,etudiants[i].Departement)==0 ){
+                  if (strcmp(dep1,etudiants[i].Departement)==0 ){
 
                 conteurDep++;
             }
+
+             }printf("departement %s : %d\n",dep1,conteurDep);
+             conteurDep=0;
+             for(int i=0;i<index;i++){
+
+                  if (strcmp(dep2,etudiants[i].Departement)==0 ){
+
+                conteurDep++;
+            }
+
+             }printf("departement %s : %d\n",dep2,conteurDep);
+             conteurDep=0;
+             for(int i=0;i<index;i++){
+
+                  if (strcmp(dep3,etudiants[i].Departement)==0 ){
+
+                conteurDep++;
+            }
+
+             }printf("departement %s : %d\n",dep3,conteurDep);
+             conteurDep=0;
+             for(int i=0;i<index;i++){
+
+                  if (strcmp(dep4,etudiants[i].Departement)==0 ){
+
+                conteurDep++;
+            }
+
+             }printf("departement %s : %d\n",dep4,conteurDep);
+             conteurDep=0;
+printf("les etudiants qui ont plus que %d : \n",seuil);
+             for(int i=0;i<index;i++){
             if (etudiants[i].noteGenerale>seuil ){
 
-                printf("%s departement %s : %.2f",etudiants[i].nom,etudiants[i].Departement,etudiants[i].noteGenerale);
+                printf("%s departement %s : %.2f\n",etudiants[i].nom,etudiants[i].Departement,etudiants[i].noteGenerale);
             }
+            }
+             for(int i=0;i<index;i++){
             if (etudiants[i].noteGenerale>=10 ){
 
                 conteurReus++;
 
             }
+             }
 
+printf("Nombre total d'etudiants reussite : %d\n",conteurReus);
 
-    }
     triMoynGener(etudiants,index);
 
     for(int i=0;i<3;i++){
         printf("les 3 etudiants qui ont les meilleures notes sont : \n");
-        printf("%s departement %s : %.2f",etudiants[i].nom,etudiants[i].Departement,etudiants[i].noteGenerale);
+        printf("%s departement %s : %.2f\n",etudiants[i].nom,etudiants[i].Departement,etudiants[i].noteGenerale);
 
 }
 
-
 }
+
 int main(){
 
     struct Etudiant etudiants[100];
@@ -281,7 +316,7 @@ etudiant1.numUniq=numAuto;
     break;
 case 2:
         printf("\n");
-        int choixMdSp=0 ,num;
+        int choixMdSp=0 ,num=0;
     printf("1-Modifier 2-Supprimer");
     scanf("%d",&choixMdSp);
 
