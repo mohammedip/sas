@@ -35,14 +35,15 @@ struct Etudiant ajouter(){
     scanf("%s",etudiant1.prenom);
 
     printf("entrez la date de naissance : \n");
-    printf("jour : ");
+    printf("jour (1-31): ");
     scanf("%s",etudiant1.dateDeNaissance.day);
-    printf("mois : ");
+    printf("mois (1-12): ");
     scanf("%s",etudiant1.dateDeNaissance.mois);
-    printf("annee : ");
+    printf("annee (1900-2009): ");
     scanf("%s",etudiant1.dateDeNaissance.year);
 
-    printf("entrez le departement : ");
+    printf("entrez le departement (1-Math 2-Phisique 3-SVT 4-Informatique) : ");
+
     scanf("%s",etudiant1.Departement);
 
     printf("entrez la note generale : ");
@@ -64,14 +65,15 @@ struct Etudiant modifier(int num,int index,struct Etudiant etudiants[100]){
         scanf("%s",etudiants[i].prenom);
 
         printf("entrez la date de naissance : \n");
-        printf("jour : ");
+        printf("jour (1-31): ");
         scanf("%s",etudiants[i].dateDeNaissance.day);
-        printf("mois : ");
+        printf("mois (1-12): ");
         scanf("%s",etudiants[i].dateDeNaissance.mois);
-        printf("annee : ");
+
+        printf("annee (1900-2009): ");
         scanf("%s",etudiants[i].dateDeNaissance.year);
 
-        printf("entrez le departement : ");
+        printf("entrez le departement (1-Math 2-Phisique 3-SVT 4-Informatique) : ");
         scanf("%s",etudiants[i].Departement);
 
         printf("entrez la note generale : ");
@@ -167,15 +169,54 @@ void calcMoynGener(struct Etudiant etudiants[],int index){
 
 }
 
-void statistique(int nbEtd,struct Etudiant etudiants[],int index){
+void triMoynGener(struct Etudiant etudiants[],int index){
 
-int conteur=0,seuil=0,max=0;
+do{
+for(int i=0;i<index;i++){
+    struct Etudiant x;
+    if(etudiants[i+1].noteGenerale>etudiants[i].noteGenerale){
+
+       x=etudiants[i];
+       etudiants[i]=etudiants[i+1];
+       etudiants[i+1]=x;
+    }
+
+}
+index--;
+}while(index>0);
+
+}
+void triAlpha(struct Etudiant etudiants[],int index){
+do{
+for(int i=0;i<index;i++){
+    struct Etudiant x;
+    if(strcmp(etudiants[i+1].nom,etudiants[i].nom)>0){
+
+
+         x=etudiants[i];
+       etudiants[i]=etudiants[i+1];
+       etudiants[i+1]=x;
+
+    }
+
+}
+index--;
+}while(index>0);
+
+}
+
+
+
+
+void statistique(struct Etudiant etudiants[],int index){
+
+int conteurDep=0,seuil=0,conteurReus=0;
 char dep[100];
 
     printf("entrer le departement : ");
     scanf("%d",&seuil);
 
-     printf("Nombre total d'etudiants inscrits : %d",nbEtd);
+     printf("Nombre total d'etudiants inscrits : %d",index);
    // printf("%d",conteur);
 
     //printf("entrer le departement : ");
@@ -184,26 +225,30 @@ char dep[100];
 
                   if (strcmp(dep,etudiants[i].Departement)==0 ){
 
-                conteur++;
+                conteurDep++;
             }
             if (etudiants[i].noteGenerale>seuil ){
 
                 printf("%s departement %s : %.2f",etudiants[i].nom,etudiants[i].Departement,etudiants[i].noteGenerale);
             }
+            if (etudiants[i].noteGenerale>=10 ){
+
+                conteurReus++;
+
+            }
 
 
     }
+    triMoynGener(etudiants,index);
 
-
-
-
-
-
-
-
+    for(int i=0;i<3;i++){
+        printf("les 3 etudiants qui ont les meilleures notes sont : \n");
+        printf("%s departement %s : %.2f",etudiants[i].nom,etudiants[i].Departement,etudiants[i].noteGenerale);
 
 }
 
+
+}
 int main(){
 
     struct Etudiant etudiants[100];
@@ -229,7 +274,7 @@ etudiant1.numUniq=numAuto;
    etudiants[index_etudiants]=etudiant1;
 
    index_etudiants++;
-   printf("%d\n",etudiant1.numUniq);
+
     printf("bien Ajouter\n");
 
     printf("\n");
@@ -281,40 +326,57 @@ case 4:
         break;
 case 5:
         printf("\n");
-        printf("Statistiques\n");
+        statistique(etudiants,index_etudiants);
         printf("\n");
         break;
 case 6:
         printf("\n");
         int choixRech=0;
-    printf("rechercher par :1-nom 2-departement");
-    scanf("%d",&choixRech);
+        printf("rechercher par :1-nom 2-departement");
+        scanf("%d",&choixRech);
     if(choixRech==1){
+
         afficher(rechercheNom(etudiants));
+
     }else if(choixRech==2){
 
         if(index_affichage==index_etudiants && index_etudiants==0){
+
                     printf("aucun etudiant trouver\n");
-                }else{
+        }else{
 
     char dep[100];
     printf("entrer le departement : ");
-             scanf("%s",dep);
-               while(index_affichage!=index_etudiants){
+    scanf("%s",dep);
 
-                   afficher(rechercheDep(etudiants,index_affichage,dep));
+    while(index_affichage!=index_etudiants){
 
-                index_affichage++;
-                }
-                }
-        }else {
+            afficher(rechercheDep(etudiants,index_affichage,dep));
+
+            index_affichage++;
+                                            }
+            }
+    }else {
+
     printf("Il faut choisire un element de menu !\n");
+
     }
         printf("\n");
         break;
 case 7:
         printf("\n");
-        printf("Tri\n");
+        int choixTri=0;
+         printf("1-tri alphabitique 2-tri par moyenne generale");
+    scanf("%d",&choixTri);
+
+    if(choixTri==1){
+        triAlpha(etudiants,index_etudiants);
+        printf("les etudiants sont trier par ordre alphabitique");
+
+    }else if(choixTri==2){
+        triMoynGener(etudiants,index_etudiants);
+        printf("les etudiants sont trier par moyenne generale");
+    }
         printf("\n");
         break;
 case 8:
